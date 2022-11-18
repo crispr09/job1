@@ -2,6 +2,7 @@ package com.crud.repo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.crud.model.Person;
@@ -14,12 +15,11 @@ public class PersonRepo {
 	private List<Person> list = new ArrayList<Person>();
 
 	public void getAll() {
-		List<Person> list = List.of(new Person(1, "Trinh Minh Cuong", "Developer", true, "1975-11-27"),
-				new Person(2, "Mary Jane", "Banker", false, "1980-05-24"),
-				new Person(3, "Tom Sawyer", "Taxi Driver", true, "1990-08-09"));
-		for (Person person : list) {
-			list.add(person);
-		}
+		list.add(new Person(1, "Trinh Minh Cuong", "Developer", true, "1975-11-27"));
+		list.add(new Person(2, "Mary Jane", "Banker", false, "1980-05-24"));
+		list.add(new Person(3, "Tom Sawyer", "Taxi Driver", true, "1990-08-09"));
+		
+		
 
 	}
 
@@ -28,7 +28,12 @@ public class PersonRepo {
 	}
 
 	public List<Person> search(String name) {
-		return list.stream().filter(x -> x.getName().startsWith(name)).collect(Collectors.toList());
+		if(null != name)
+		return list.stream().filter(x -> x.getName().toLowerCase().startsWith(name.toLowerCase())).collect(Collectors.toList());
+		else
+			return null;
+		
+
 	}
 
 	public String add(Person p) {

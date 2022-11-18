@@ -45,8 +45,9 @@ public class PersonController {
 	}
 
 	@GetMapping(path = { "/inAdd" })
-	public String inAdd(Model model) {
-		return "form";
+	public String inAdd(Model model, Person p) {
+		model.addAttribute("person", p);
+		return "form2";
 	}
 
 	@PostMapping(path = { "/add" })
@@ -62,8 +63,8 @@ public class PersonController {
 	}
 
 	@GetMapping(path = "/iniEdit/{id}")
-	public String iniEdit(Model model, @PathVariable(name = "name") String name) {
-		List<Person> list = personService.search(name);
+	public String iniEdit(Model model, @PathVariable(name = "id") String id) {
+		List<Person> list = personService.search(id);
 		Person obj = new Person();
 		for (Person element : list) {
 			obj = element;
@@ -76,6 +77,7 @@ public class PersonController {
 	@PostMapping(path = "/edit")
 	public String edit(Model model,Person p) {
 		personService.edit(p);
+		model.addAttribute("person", p);
 		return "redirect:/";
 	}
 }
